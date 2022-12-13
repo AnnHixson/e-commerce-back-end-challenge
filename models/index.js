@@ -1,5 +1,3 @@
-// Set up model/table connections
-
 // import models: Product, Category, Tag, ProductTag
 const Product = require('./Product');
 const Category = require('./Category');
@@ -23,7 +21,6 @@ Product.belongsToMany(Tag, { through: ProductTag });
 // Tags belongToMany Products (through ProductTag)
 Tag.belongsToMany(Product, { through: ProductTag });
 
-// export all 4 models as an object
 module.exports = {
   Product,
   Category,
