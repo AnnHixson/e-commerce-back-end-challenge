@@ -5,8 +5,6 @@ const { Tag, Product, ProductTag } = require('../../models');
 
 // GET all tags
 router.get('/', async (req, res) => {
-  // find all tags
-  // be sure to include its associated Product data
   try {
     const tagData = await Tag.findAll({
       include: Product
@@ -19,18 +17,15 @@ router.get('/', async (req, res) => {
 
 // GET a single tag
 router.get('/:id', async (req, res) => {
-  // find a single tag by its `id`
-  // be sure to include its associated Product data
+  // '/:id' should be the id of the tag you want to get
   try {
     const tagData = await Tag.findByPk(req.params.id, {
       include: Product
     });
-
     if (!tagData) {
       res.status(404).json({ message: 'No tag found with this id!' });
       return;
     }
-
     res.status(200).json(tagData);
   } catch (err) {
     res.status(500).json(err);
@@ -39,9 +34,11 @@ router.get('/:id', async (req, res) => {
 
 // CREATE a tag
 router.post('/', async (req, res) => {
-  // create a new tag
-
-  // TO TEST: ???
+  /* req.body should look like this...
+    {
+      "tag_name": "Pink"
+    }
+  */
   try {
     const tagData = await Tag.create(req.body);
     res.status(200).json(tagData);
@@ -52,9 +49,12 @@ router.post('/', async (req, res) => {
 
 // UPDATE a tag
 router.put('/:id', async (req, res) => {
-  // update a tag's name by its `id` value
-
-  // TO TEST: ???
+  // '/:id' should be the id of the tag you want to update
+  /* req.body should look like this...
+    {
+      "tag_name": "Purple"
+    }
+  */
   try {
     const tagData = await Tag.update(req.body, {
       where: {
@@ -73,9 +73,7 @@ router.put('/:id', async (req, res) => {
 
 // DELETE a tag
 router.delete('/:id', async (req, res) => {
-  // delete on tag by its `id` value
-
-  // TO TEST: ???
+  // '/:id' should be the id of the tag you want to delete
   try {
     const tagData = await Tag.destroy({
       where: {
